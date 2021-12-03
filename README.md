@@ -12,6 +12,7 @@ Make subdirectory for scripts (if not exists) and copy script
 
 `mkdir /etc/zabbix/scripts/ && cp zabbix-nginx-logs/scripts/nginx_acc_logs.py
 `
+
 Set permissions for script
 
 `chown zabbix /etc/zabbix/scripts/nginx_acc_logs.py && chmod +x /etc/zabbix/scripts/nginx_acc_logs.py`
