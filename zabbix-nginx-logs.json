@@ -1,0 +1,271 @@
+{
+    "zabbix_export": {
+        "version": "5.4",
+        "date": "2021-12-03T12:03:50Z",
+        "groups": [
+            {
+                "uuid": "7df96b18c230490a9a0a9e2307226338",
+                "name": "Templates"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "d47c189398264cabb5aa551c869b3356",
+                "template": "nginx_logs",
+                "name": "Template nginx logs monitoring",
+                "groups": [
+                    {
+                        "name": "Templates"
+                    }
+                ],
+                "discovery_rules": [
+                    {
+                        "uuid": "bc0ccc1f48d64eb68bff79715730a6fa",
+                        "name": "Nginx access logs discovery",
+                        "key": "nginx.logs.access",
+                        "filter": {
+                            "conditions": [
+                                {
+                                    "macro": "{#NGACLOGPATH}",
+                                    "operator": "EXISTS",
+                                    "formulaid": "A"
+                                }
+                            ]
+                        },
+                        "item_prototypes": [
+                            {
+                                "uuid": "561fcfa1e39147fb93052f570060f082",
+                                "name": "Total codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ],
+                                "trigger_prototypes": [
+                                    {
+                                        "uuid": "299296f1c63b458ebe365d986f279620",
+                                        "expression": "nodata(/nginx_logs/logrt.count[{#NGACLOGPATH}.*,\".*\"],5m)=1",
+                                        "recovery_mode": "RECOVERY_EXPRESSION",
+                                        "recovery_expression": "nodata(/nginx_logs/logrt.count[{#NGACLOGPATH}.*,\".*\"],5m)=0",
+                                        "name": "http logs no data {#NGACLOGPATH}",
+                                        "priority": "WARNING",
+                                        "tags": [
+                                            {
+                                                "tag": "Application",
+                                                "value": "Httpd logs monitoring"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "350820536a6647ddba40bbc204550f7e",
+                                "name": "Accepts codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" (20.{1}|30.{1}) \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "bde404f3fbfe4a7cbc3a3dc5f6f39786",
+                                "name": "Error codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" (499|50.{1}) \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "73abeb8583254d8f81c741775f6f6085",
+                                "name": "200 codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 20.{1} \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "82792009e7264433846d8891801f76bf",
+                                "name": "300 codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 30.{1} \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "943af6a9ae9744b0b75ee34dd5f66e4f",
+                                "name": "400 codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 40.{1} \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "ad991ada4f1c44689816562b44c516e2",
+                                "name": "500 codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 50.{1} \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "41b04414634d4b9bbd7bd6ad173f86bd",
+                                "name": "499 codes in {#NGDOMNAME}",
+                                "type": "ZABBIX_ACTIVE",
+                                "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 499 \"]",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ]
+                            },
+                            {
+                                "uuid": "ba8e60793b314ae6a313f89e3922b684",
+                                "name": "Httpd errors percent {#NGDOMNAME}",
+                                "type": "CALCULATED",
+                                "key": "nginx.logserrpr.[{#NGACLOGPATH}]",
+                                "params": "100*(last(//logrt.count[{#NGACLOGPATH}.*,\".*\\\" (499|50.{1}) \"])/(last(//logrt.count[{#NGACLOGPATH}.*,\".*\"])+1))",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Httpd logs monitoring"
+                                    }
+                                ],
+                                "trigger_prototypes": [
+                                    {
+                                        "uuid": "b36307aa01744bb99ffb994b91935926",
+                                        "expression": "last(/nginx_logs/nginx.logserrpr.[{#NGACLOGPATH}])>50",
+                                        "name": "http errors crit problem in {#NGDOMNAME}",
+                                        "priority": "HIGH",
+                                        "type": "MULTIPLE",
+                                        "tags": [
+                                            {
+                                                "tag": "Application",
+                                                "value": "Httpd logs monitoring"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "uuid": "716f998646d344bfa5edeb4b84be082d",
+                                        "expression": "last(/nginx_logs/nginx.logserrpr.[{#NGACLOGPATH}])>1",
+                                        "name": "http errors problem in {#NGDOMNAME}",
+                                        "priority": "AVERAGE",
+                                        "type": "MULTIPLE",
+                                        "tags": [
+                                            {
+                                                "tag": "Application",
+                                                "value": "Httpd logs monitoring"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "graph_prototypes": [
+                            {
+                                "uuid": "ec5d34471a63467b85c725a19fd9d371",
+                                "name": "http codes in {#NGDOMNAME}",
+                                "graph_items": [
+                                    {
+                                        "sortorder": "1",
+                                        "drawtype": "FILLED_REGION",
+                                        "color": "1B5E20",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" (20.{1}|30.{1}) \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "2",
+                                        "drawtype": "FILLED_REGION",
+                                        "color": "FF0000",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" (499|50.{1}) \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "3",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "00FF00",
+                                        "calc_fnc": "ALL",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 20.{1} \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "4",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "0000CC",
+                                        "calc_fnc": "ALL",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 30.{1} \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "5",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "DD0000",
+                                        "calc_fnc": "ALL",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 40.{1} \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "6",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "A54F10",
+                                        "calc_fnc": "ALL",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 499 \"]"
+                                        }
+                                    },
+                                    {
+                                        "sortorder": "7",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "FFFF00",
+                                        "calc_fnc": "ALL",
+                                        "item": {
+                                            "host": "nginx_logs",
+                                            "key": "logrt.count[{#NGACLOGPATH}.*,\".*\\\" 50.{1} \"]"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
